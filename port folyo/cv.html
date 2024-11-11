@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student CV</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        #cv-container {
+            width: 60%;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .student-info h1 {
+            color: #2c3e50;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .student-info p {
+            color: #34495e;
+            font-size: 16px;
+            margin: 5px 0;
+        }
+
+        .projects h2 {
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .project {
+            background-color: #ecf0f1;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .project h3 {
+            color: #2980b9;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .project a {
+            color: #2980b9;
+            text-decoration: none;
+        }
+
+        .project a:hover {
+            text-decoration: underline;
+        }
+
+        .skills, .date {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .skills {
+            margin-bottom: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="cv-container">
+        <div class="student-info">
+            <h1 id="student-name">Student Name</h1>
+            <p id="student-email">Email: </p>
+            <p id="student-phone">Phone: </p>
+            <p id="student-group">Group: </p>
+        </div>
+
+        <div class="projects">
+            <h2>Projects</h2>
+            <div id="projects-list">
+                <!-- Projects will be inserted here dynamically -->
+            </div>
+        </div>
+    </div>
+    <button onclick="convertToPDF()">Download PDF</button>
+    <script src="script.js"></script>
+    <script src="cv.js"></script>
+</body>
+</html>

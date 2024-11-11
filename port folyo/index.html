@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire d'inscription</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            font-size: 1.1em;
+            margin-top: 10px;
+            display: block;
+        }
+        input[type="text"], input[type="email"], input[type="tel"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+        #submitBtn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Formulaire d'inscription</h1>
+    <form id="registrationForm">
+        <label for="nom">Nom :</label>
+        <input type="text" id="nom" name="nom" required placeholder="Entrez votre nom">
+        
+        <label for="prenom">Prénom :</label>
+        <input type="text" id="prenom" name="prenom" required placeholder="Entrez votre prénom">
+        
+        <label for="email">Email (format : nom.prenom.solicode@gmail.com) :</label>
+        <input type="email" id="email" name="email" required placeholder="nom.prenom.solicode@gmail.com" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(solicode\.com|gmail\.com)$" title="L'email doit être dans le format nom.prenom.solicode@gmail.com">
+        
+        <label for="telephone">Téléphone (format : +212XXX-XX-XX-XX) :</label>
+        <input type="tel" id="telephone" name="telephone" required placeholder="+212XXX-XX-XX-XX" pattern="^\+212\d{3}\d{2}\d{2}\d{2}$" title="Le numéro de téléphone doit être au format : +212XXX-XX-XX-XX">
+        
+        <label for="groupe">Groupe :</label>
+        <select id="groupe" name="groupe" required>
+            <option value="">Sélectionnez un groupe</option>
+            <option value="A">Groupe A</option>
+            <option value="B">Groupe B</option>
+            <option value="C">Groupe C</option>
+            <option value="D">Groupe D</option>
+        </select>
+
+        <button type="button" id="submitBtn">Suivant</button>
+    </form>
+</div>
+
+<script src="script.js"></script>
+<script>
+document.getElementById("submitBtn").addEventListener("click", function () {
+    const inputs = [
+        { id: "nom", message: "Please enter a valid name." },
+        { id: "prenom", message: "Please enter a valid last name." },
+        { id: "email", message: "Please enter a valid email address.", pattern: /^[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*\.solicode@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$/ },
+        { id: "telephone", message: "Please enter a valid phone number.", pattern: /^\+212\d{3}-\d{2}-\d{2}-\d{2}$/ },
+        { id: "groupe", message: "Please select a group." }
+    ];
+
+    let allValid = true;
+
+    for (let i = 0; i < inputs.length; i++) {
+        const { id, message, pattern } = inputs[i];
+        const input = document.getElementById(id);
+        const value = input.value.trim();
+        let isValid = !!value;
+
+        if (pattern) {
+            isValid = pattern.test(value);
+        }
+
+        if (isValid) {
+            input.style.borderColor = "";  // Clear border color if valid
+        } else {
+            input.style.borderColor = "red";
+            alert(message);
+            allValid = false;
+            break;  // Stop validation on the first invalid input
+        }
+    }
+
+    if (allValid) {
+        const student = new Student(
+            document.getElementById("nom").value.trim(),
+            document.getElementById("prenom").value.trim(),
+            document.getElementById("email").value.trim(),
+            document.getElementById("telephone").value.trim(),
+            document.getElementById("groupe").value
+        );
+        student.saveToLocalStorage();
+        alert("Student added successfully");
+        document.getElementById("registrationForm").reset();
+        window.location.href = "projects.html";
+    }
+});
+
+</script>
+</body>
+</html>
